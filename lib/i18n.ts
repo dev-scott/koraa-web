@@ -16,6 +16,14 @@ const dictionaries = {
             download:"Télécharger",
             openApp: "Ouvrir l'app",
         },
+        footer:{
+            tagline:"Apprend ta langue avec koraa",
+            links:"Liens",
+            privacy:"Politique de confidentialité",
+            madeWith:"Fait avec ❤️ au Cameroun",
+            by:"Par",
+            rights:"© 2026 Koraa. Tous droits réservés."
+        }
 
 
     },
@@ -26,6 +34,14 @@ const dictionaries = {
             download:"Download",
             openApp: "Open app",
         },
+        footer:{
+            tagline:"Learn your language with koraa !",
+            links:"Links",
+            privacy:"Privacy Policy",
+            madeWith:"Made with ❤️ in Cameroon",
+            by:"By",
+            rights:"© 2026 Koraa. All rights reserved."
+        }
     }
 
 }

@@ -6,7 +6,7 @@ export default function Home() {
         <>
             <Header />
 
-            <section className=" relative overflow-hidden bg-red-500">
+            <section className=" relative overflow-hidden min-h-screen ">
                 body
             </section>
 
