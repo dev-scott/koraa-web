@@ -1,14 +1,340 @@
+"use client"
+
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { FadeInUp, FadeInUpChild, ScaleIn, StaggerContainer } from "@/components/motion-wrapper";
+import { ScreenshotLightbox } from "@/components/screenshot-lightbox";
+import { StoreBadges } from "@/components/store-badges";
+import { recipes } from "@/data/recipes";
+import { useLocal } from "@/lib/locale-context";
+import { ArrowRight, ChefHat, Flame, Heart, LucideIcon, Map, Search, WifiOff } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import Masonry from "react-masonry-css";
+
+
+const screenshots = [
+  { src: "/mockups/home.png", alt: "Écran d'accueil de l'app Tchopé : recettes camerounaises classées par région" },
+  { src: "/mockups/search.png", alt: "Recherche de recettes camerounaises par ingrédient et temps de cuisson dans Tchopé" },
+  { src: "/mockups/recipe.png", alt: "Fiche recette camerounaise détaillée dans Tchopé : ingrédients et étapes" },
+  { src: "/mockups/cookbook.png", alt: "Cookbook personnel Tchopé avec recettes favorites sauvegardées" },
+  { src: "/mockups/recipe-video.png", alt: "Vidéos de préparation d'une recette camerounaise dans Tchopé" },
+  { src: "/mockups/settings.png", alt: "Réglages de l'app Tchopé : langue française ou anglaise, thème" },
+]
+
+// Recettes phares liées depuis la landing (maillage interne vers les fiches).
+const POPULAR_RECIPE_IDS = [
+  "ndole",
+  "poulet-dg",
+  "eru",
+  "mbongo-tchobi",
+  "okok-sale",
+  "kondre",
+  "beignets-koki",
+  "foufou-manioc",
+]
+
+const masonryBreakpoints = {
+  default: 2,
+  640: 1,
+}
 
 export default function Home() {
+
+    const { locale, t } = useLocal()
+    const [lightbox, setLightbox] = useState<{ src: string, alt: string } | null>(null)
+
+      const features: {
+    icon: LucideIcon
+    title: string
+    desc: string
+    accent?: boolean
+    tall?: boolean
+  }[] = [
+    {
+      icon: Map,
+      title: t.features.regionTitle,
+      desc: t.features.regionDesc,
+      tall: true,
+    },
+    {
+      icon: Search,
+      title: t.features.searchTitle,
+      desc: t.features.searchDesc,
+    },
+    {
+      icon: Heart,
+      title: t.features.favTitle,
+      desc: t.features.favDesc,
+      accent: true,
+    },
+    {
+      icon: WifiOff,
+      title: t.features.offlineTitle,
+      desc: t.features.offlineDesc,
+      tall: true,
+    },
+  ]
+
     return (
         <>
             <Header />
 
-            <section className=" relative overflow-hidden min-h-screen ">
-                body
+            {/* Hero — white background, pt to account for floating header */}
+            <section className="relative overflow-hidden bg-surface">
+                <div className="pointer-events-none absolute -top-32 right-0 h-[500px] w-[500px] rounded-full bg-secondary/6 blur-3xl" />
+                <div className="pointer-events-none absolute -bottom-20 -left-20 h-[300px] w-[300px] rounded-full bg-secondary/4 blur-3xl" />
+
+                <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-12 px-6 pt-28 pb-20 lg:flex-row lg:gap-16 lg:pt-36 lg:pb-28">
+                    <div className="flex-1 text-center lg:text-left">
+                        <FadeInUp>
+                            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-secondary/15 bg-tags px-4 py-1.5">
+                                <ChefHat className="size-4 text-secondary" />
+                                <span className="text-xs font-semibold text-secondary">
+                                    {t.hero.badge}
+                                </span>
+                                <Flame className="size-3.5 text-secondary/60" />
+                            </div>
+                        </FadeInUp>
+
+                        <FadeInUp delay={0.1}>
+                            <h1 className="text-[2.5rem] leading-[1.1] font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+                                {t.hero.title}
+                            </h1>
+                        </FadeInUp>
+
+                        <FadeInUp delay={0.2}>
+                            <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-foreground sm:text-lg lg:mx-0">
+                                {t.hero.subtitle}
+                            </p>
+                        </FadeInUp>
+
+                        <FadeInUp delay={0.3}>
+                            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                                <Link
+                                    href={`/${locale}/app`}
+                                    className="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-bold text-white transition-all hover:brightness-110"
+                                >
+                                    {t.nav.openApp}
+                                    <ArrowRight className="size-4" />
+                                </Link>
+                                <StoreBadges />
+                            </div>
+                        </FadeInUp>
+                    </div>
+
+                    <FadeInUp delay={0.2} className="relative shrink-0">
+                        <div className="relative">
+                            <div className="absolute inset-0 -z-10 translate-y-4 scale-90 rounded-[3rem] bg-secondary/20 blur-2xl" />
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setLightbox({ src: "/mockups/home.png", alt: "Tchopé app" })
+                                }
+                                className="cursor-pointer"
+                            >
+                                <Image
+                                    src="/mockups/home.png"
+                                    alt="Tchopé app"
+                                    width={280}
+                                    height={560}
+                                    className="w-[240px] rounded-[2.5rem] shadow-2xl transition-transform duration-300 hover:scale-[1.02] sm:w-[270px] lg:w-[300px]"
+                                    priority
+                                />
+                            </button>
+                        </div>
+                    </FadeInUp>
+                </div>
             </section>
+
+
+
+            {/* Features — Masonry */}
+            <section id="features" className="bg-background">
+                <div className="mx-auto max-w-5xl px-6 py-20 lg:py-28">
+                    <FadeInUp>
+                        <p className="text-center text-sm font-semibold uppercase tracking-widest text-primary">
+                            {t.features.sectionLabel}
+                        </p>
+                        <h2 className="mt-3 text-center text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+                            {t.features.title}
+                        </h2>
+                    </FadeInUp>
+
+                    <StaggerContainer className="mt-16">
+                        <Masonry
+                            breakpointCols={masonryBreakpoints}
+                            className="masonry-grid"
+                            columnClassName="masonry-grid_column"
+                        >
+                            {features.map((f) => (
+                                <FadeInUpChild key={f.title}>
+                                    <div
+                                        className={`group rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${f.accent
+                                                ? "border-primary/20 bg-gradient-to-br from-primary/10 via-tags to-surface"
+                                                : "border-foreground/5 bg-surface"
+                                            } ${f.tall ? "p-8 pb-12" : "p-7"}`}
+                                    >
+                                        <div
+                                            className={`flex size-12 items-center justify-center rounded-2xl transition-colors ${f.accent
+                                                    ? "bg-primary text-white"
+                                                    : "bg-tags text-primary group-hover:bg-primary group-hover:text-white"
+                                                }`}
+                                        >
+                                            <f.icon className="size-5" />
+                                        </div>
+                                        <h3 className="mt-5 text-lg font-bold text-foreground">
+                                            {f.title}
+                                        </h3>
+                                        <p className="mt-2.5 text-sm leading-relaxed text-muted">
+                                            {f.desc}
+                                        </p>
+                                    </div>
+                                </FadeInUpChild>
+                            ))}
+                        </Masonry>
+                    </StaggerContainer>
+                </div>
+            </section>
+
+            {/* Screenshots — Grid display, click to enlarge */}
+            <section id="screenshots" className="bg-surface">
+                <div className="mx-auto max-w-6xl px-6 py-20 lg:py-28">
+                    <FadeInUp>
+                        <p className="text-center text-sm font-semibold uppercase tracking-widest text-primary">
+                            {t.screenshots.sectionLabel}
+                        </p>
+                        <h2 className="mt-3 text-center text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+                            {t.screenshots.title}
+                        </h2>
+                    </FadeInUp>
+
+                    <StaggerContainer className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-6 lg:gap-5">
+                        {screenshots.map((m, i) => (
+                            <FadeInUpChild key={m.alt}>
+                                <button
+                                    type="button"
+                                    onClick={() => setLightbox(m)}
+                                    className="group w-full cursor-pointer"
+                                    style={{
+                                        transform: `translateY(${i % 2 === 0 ? 0 : 12}px)`,
+                                    }}
+                                >
+                                    <Image
+                                        src={m.src}
+                                        alt={m.alt}
+                                        width={260}
+                                        height={520}
+                                        className="w-full rounded-[1.5rem] shadow-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl sm:rounded-[2rem]"
+                                    />
+                                </button>
+                            </FadeInUpChild>
+                        ))}
+                    </StaggerContainer>
+                </div>
+            </section>
+
+            {/* Lightbox */}
+            <ScreenshotLightbox
+                src={lightbox?.src ?? ""}
+                alt={lightbox?.alt ?? ""}
+                open={!!lightbox}
+                onClose={() => setLightbox(null)}
+            />
+
+            {/* Recettes populaires — maillage interne vers les fiches recettes */}
+            <section id="recipes" className="bg-background">
+                <div className="mx-auto max-w-6xl px-6 py-20 lg:py-28">
+                    <FadeInUp>
+                        <p className="text-center text-sm font-semibold uppercase tracking-widest text-primary">
+                            {t.popular.sectionLabel}
+                        </p>
+                        <h2 className="mt-3 text-center text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+                            {t.popular.title}
+                        </h2>
+                    </FadeInUp>
+
+                    <StaggerContainer className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                        {POPULAR_RECIPE_IDS.map((id) => {
+                            const recipe = recipes.find((r) => r.id === id)
+                            if (!recipe) return null
+                            return (
+                                <FadeInUpChild key={id}>
+                                    <Link
+                                        href={`/${locale}/app/recipe/${id}`}
+                                        className="group flex h-full items-center justify-between gap-2 rounded-2xl border border-foreground/10 bg-surface px-5 py-4 transition-colors hover:border-primary"
+                                    >
+                                        <span className="font-semibold text-foreground">{recipe.name}</span>
+                                        <ArrowRight className="size-4 shrink-0 text-primary transition-transform group-hover:translate-x-0.5" />
+                                    </Link>
+                                </FadeInUpChild>
+                            )
+                        })}
+                    </StaggerContainer>
+
+                    <FadeInUp>
+                        <p className="mt-8 text-center">
+                            <Link
+                                href={`/${locale}/app`}
+                                className="font-semibold text-primary hover:underline"
+                            >
+                                {t.popular.viewAll}
+                            </Link>
+                        </p>
+                    </FadeInUp>
+                </div>
+            </section>
+
+            {/* Stats */}
+            <section className="relative overflow-hidden bg-primary">
+                <div className="pointer-events-none absolute -right-20 -top-20 h-[300px] w-[300px] rounded-full bg-white/10 blur-3xl" />
+                <div className="pointer-events-none absolute -bottom-10 -left-10 h-[200px] w-[200px] rounded-full bg-black/10 blur-3xl" />
+
+                <StaggerContainer className="relative mx-auto flex max-w-4xl flex-col items-center justify-around gap-12 px-6 py-20 text-center text-white md:flex-row md:gap-0">
+                    {[
+                        { value: "10", label: t.stats.regions },
+                        { value: "2", label: t.stats.languages },
+                        { value: "100%", label: t.stats.free },
+                    ].map((stat) => (
+                        <FadeInUpChild key={stat.label}>
+                            <p className="text-6xl font-extrabold tracking-tight md:text-7xl">
+                                {stat.value}
+                            </p>
+                            <p className="mt-3 text-sm font-medium text-white/80">
+                                {stat.label}
+                            </p>
+                        </FadeInUpChild>
+                    ))}
+                </StaggerContainer>
+            </section>
+
+            {/* CTA */}
+            <section id="download" className="bg-background">
+                <div className="mx-auto max-w-3xl px-6 py-24 text-center">
+                    <ScaleIn>
+                        <div className="rounded-[2rem] border border-foreground/5 bg-surface px-8 py-14 shadow-2xl shadow-foreground/5 sm:px-14">
+                            <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+                                {t.cta.title}
+                            </h2>
+                            <p className="mt-4 text-base text-muted sm:text-lg">
+                                {t.cta.subtitle}
+                            </p>
+                            <div className="mt-8 flex flex-col items-center gap-4">
+                                <Link
+                                    href={`/${locale}/app`}
+                                    className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-bold text-white transition-all hover:brightness-110"
+                                >
+                                    {t.cta.openWeb}
+                                    <ArrowRight className="size-4" />
+                                </Link>
+                                <StoreBadges />
+                            </div>
+                        </div>
+                    </ScaleIn>
+                </div>
+            </section>
+
 
             <Footer />
 

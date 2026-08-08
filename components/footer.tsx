@@ -75,6 +75,9 @@ export default function Footer() {
                     </div>
 
                 </div>
+                <div className="mt-14 border-t border-foreground pt-6 text-center text-xs text-foreground">
+                    {t.footer.rights}
+                </div>
             </div>
 
         </footer>
