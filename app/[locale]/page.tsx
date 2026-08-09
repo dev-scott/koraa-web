@@ -254,6 +254,7 @@ export default function Home() {
                             {t.popular.title}
                         </h2>
                     </FadeInUp>
+                    
 
                     <StaggerContainer className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
                         {POPULAR_RECIPE_IDS.map((id) => {
