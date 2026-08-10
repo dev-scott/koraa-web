@@ -1,4 +1,11 @@
-import { Recipe } from '@/types/recipe';
+export interface Recipe {
+  id: string;
+  name: string;
+  description: string;
+  image: string | null;
+  region: string;
+  [key: string]: any;
+}
 
 export const recipes: Recipe[] = [
   // ============ ENTREES ============

@@ -109,3 +109,47 @@ export function FadeInUpChild({
     </motion.div>
   )
 }
+
+export function FloatAnimation({
+  children,
+  className,
+  duration = 5,
+}: {
+  children: ReactNode
+  className?: string
+  duration?: number
+}) {
+  return (
+    <motion.div
+      animate={{
+        y: [0, -10, 0],
+      }}
+      transition={{
+        duration,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+export function HoverCard({
+  children,
+  className,
+}: {
+  children: ReactNode
+  className?: string
+}) {
+  return (
+    <motion.div
+      whileHover={{ y: -6, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
