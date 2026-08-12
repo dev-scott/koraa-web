@@ -2,7 +2,6 @@ import { isValidLocale, Locale, locales } from "@/lib/i18n";
 import { LocalProvider } from "@/lib/locale-context";
 import { DEFAULT_OG_EN, DEFAULT_OG_FR, languageAlternates, ogLocale, organizationJsonLd, SITE_TWITTER, SITE_URL, websiteJsonLd } from "@/lib/seo";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 
 
 export async function generateStaticParams (){
@@ -80,22 +79,20 @@ export default async function LocaleLayout({children,params}: {children: React.R
     return (
         <LocalProvider locale={typedLocale}>
 
- <Script
-        id="ld-website"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(websiteJsonLd(typedLocale)),
-        }}
-      />
-      <Script
-        id="ld-organization"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationJsonLd()),
-        }}
-      />
+            <script
+              id="ld-website"
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify(websiteJsonLd(typedLocale)),
+              }}
+            />
+            <script
+              id="ld-organization"
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify(organizationJsonLd()),
+              }}
+            />
         
             {children}
         </LocalProvider>
