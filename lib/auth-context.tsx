@@ -36,53 +36,65 @@ const AuthContext = createContext<AuthContextType>({
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
-  const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const fetchProfile = async (userId: string) => {
-    const { data } = await supabase
+  const loadProfile = async (s: Session | null) => {
+    if (!s) {
+      setProfile(null)
+      return
+    }
+    const { error, data } = await supabase
       .from('profiles')
       .select('*')
-      .eq('id', userId)
-      .single()
-    setProfile(data ?? null)
+      .eq('id', s.user.id)
+      .maybeSingle()
+
+    setProfile(error ? null : data)
   }
 
   const refreshProfile = async () => {
-    if (user) await fetchProfile(user.id)
+    await loadProfile(session)
   }
 
   const signOut = async () => {
     await supabase.auth.signOut()
+    setSession(null)
+    setProfile(null)
   }
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setUser(session?.user ?? null)
-      if (session?.user) {
-        fetchProfile(session.user.id).finally(() => setLoading(false))
-      } else {
-        setLoading(false)
-      }
-    })
+    const init = async () => {
+      setLoading(true)
+      const { data } = await supabase.auth.getSession()
+      const initialSession = data.session ?? null
+      setSession(initialSession)
+      await loadProfile(initialSession)
+      setLoading(false)
+    }
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-      setUser(session?.user ?? null)
-      if (session?.user) {
-        fetchProfile(session.user.id)
-      } else {
-        setProfile(null)
-      }
+    init()
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      setLoading(true)
+      setSession(newSession)
+      loadProfile(newSession).finally(() => setLoading(false))
     })
 
     return () => subscription.unsubscribe()
   }, [])
 
   return (
-    <AuthContext.Provider value={{ session, user, profile, loading, refreshProfile, signOut }}>
+    <AuthContext.Provider
+      value={{
+        session,
+        user: session?.user ?? null,
+        profile,
+        loading,
+        refreshProfile,
+        signOut,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )
