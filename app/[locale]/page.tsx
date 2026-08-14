@@ -586,7 +586,7 @@ export default function Home() {
             />
 
             {/* IMPACT STATS SECTION */}
-            <section className="relative bg-[#0e0c1f] py-20 text-white border-y border-white/10">
+            {/* <section className="relative bg-[#0e0c1f] py-20 text-white border-y border-white/10">
                 <StaggerContainer className="relative mx-auto flex max-w-5xl flex-col items-center justify-around gap-10 px-6 text-center md:flex-row md:gap-0">
                     {[
                         { value: "100+", label: t.stats.languages },
@@ -603,10 +603,10 @@ export default function Home() {
                         </FadeInUpChild>
                     ))}
                 </StaggerContainer>
-            </section>
+            </section> */}
 
             {/* DOWNLOAD CTA SECTION */}
-            <section id="download" className="bg-background py-24">
+            {/* <section id="download" className="bg-background py-24">
                 <div className="mx-auto max-w-4xl px-6 text-center">
                     <ScaleIn>
                         <div className="relative overflow-hidden rounded-[2.5rem] border border-foreground/10 bg-surface px-8 py-16 shadow-xl sm:px-16">
@@ -635,7 +635,7 @@ export default function Home() {
                         </div>
                     </ScaleIn>
                 </div>
-            </section>
+            </section> */}
 
             <Footer />
         </div>
