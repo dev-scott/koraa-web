@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Patrick_Hand } from "next/font/google";
 import "./globals.css";
 import { DEFAULT_OG_FR, SITE_NAME, SITE_URL } from "@/lib/seo";
 import Toaster from "@/components/ui/sonner";
@@ -15,6 +15,14 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const patrickHand = Patrick_Hand({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-patrick-hand",
+});
+
+
 
 const metadata:Metadata={
   metadataBase: new URL(SITE_URL),
@@ -91,7 +99,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr" suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${patrickHand.variable} ${patrickHand.className}`}
     >
       <body className="min-h-full flex flex-col">
         {children}
