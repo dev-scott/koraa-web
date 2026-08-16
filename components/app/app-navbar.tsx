@@ -5,6 +5,8 @@ import { BookOpen, MessageSquare, User, LogOut, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
+import { styleEffect } from 'framer-motion'
 
 const navItems = [
   { href: 'learn', icon: BookOpen, label: 'Leçons' },
@@ -21,11 +23,20 @@ export function AppNavbar({ locale }: { locale: string }) {
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-64 min-h-screen bg-white border-r border-gray-100 fixed left-0 top-0 z-40">
         {/* Logo */}
-        <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
+        {/* <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
           <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3C3489, #D4537E)' }}>
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <span className="text-xl font-extrabold" style={{ color: '#3C3489' }}>Koraa</span>
+        </div> */}
+        <div className='flex items-center flex-row justify-start px-6 pt-4 gap-2 '>
+          <div
+            className="w-14 h-14 rounded-2xl  flex items-center justify-center text-white shadow-xl rounded-xl "
+            style={{ background: 'linear-gradient(135deg, #3C3489, #D4537E)' }}
+          >
+            <Image src="/brand/logo.png" alt="koraa logo" width="100" height="100" />
+          </div>
+          <span className=' text-xl font-bold text-primary'>Koraa</span>
         </div>
 
         {/* Profile snippet */}
@@ -51,7 +62,7 @@ export function AppNavbar({ locale }: { locale: string }) {
                   "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200",
                   isActive
                     ? "text-white shadow-md"
-                    : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+                    : "text-gray-500 hover:text-gray-600 hover:bg-gray-50"
                 )}
                 style={isActive ? { background: 'linear-gradient(135deg, #3C3489, #5046a8)' } : {}}
               >
@@ -75,7 +86,7 @@ export function AppNavbar({ locale }: { locale: string }) {
       </aside>
 
       {/* Mobile Bottom Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 flex items-center justify-around px-2 pb-safe">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-400 flex items-center justify-around px-2 pb-safe">
         {navItems.map(({ href, icon: Icon, label }) => {
           const fullHref = `/${locale}/app/${href}`
           const isActive = pathname.includes(`/app/${href}`)
@@ -84,15 +95,18 @@ export function AppNavbar({ locale }: { locale: string }) {
               key={href}
               href={fullHref}
               className={cn(
-                "flex flex-col items-center gap-1 py-3 px-4 rounded-xl transition-all duration-200",
-                isActive ? "scale-105" : "opacity-50"
+                "flex flex-col items-center gap-1 py-3 px-4 rounded-xl transition-all duration-200 cursor-pointer ",
+                isActive ? "scale-105 text-primary " : "text-gray-600 hover:text-gray-500 "
+
               )}
+
+              style={isActive ? { backgroundColor: 'linear-gradient(135deg, #3C3489, #5046a8)' } : {}}
             >
               <Icon
                 className="w-6 h-6"
                 style={{ color: isActive ? '#3C3489' : '#9ca3af' }}
               />
-              <span className="text-[10px] font-bold" style={{ color: isActive ? '#3C3489' : '#9ca3af' }}>
+              <span className="text-[10px] font-bold text-xl" >
                 {label}
               </span>
             </Link>
