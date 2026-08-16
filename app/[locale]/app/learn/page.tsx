@@ -4,10 +4,11 @@ import { useAuth } from '@/lib/auth-context'
 import { getChapters, syncCourseDataWithSupabase, Chapter, Lesson, getLanguageCode } from '@/lib/course-data'
 import { getAllProgress } from '@/lib/lesson-progress'
 import { motion } from 'framer-motion'
-import { 
-  Mic, Headphones, Star, ChevronRight, CheckCircle2, 
-  TrendingUp, Sparkles, BookOpen 
+import {
+  Mic, Headphones, Star, ChevronRight, CheckCircle2,
+  TrendingUp, Sparkles, BookOpen
 } from 'lucide-react'
+import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
 
@@ -38,6 +39,7 @@ export default function LearnPage() {
   const { profile } = useAuth()
   const params = useParams()
   const locale = params.locale as string
+  console.log("local value", locale)
   const router = useRouter()
 
   const [chapters, setChapters] = useState<Chapter[]>([])
@@ -73,13 +75,16 @@ export default function LearnPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3C3489, #D4537E)' }}>
-            <Sparkles className="w-5 h-5 text-white" />
+      <div className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-end sticky top-0 z-10">
+        {/* <div className="flex items-center gap-3">
+          <div
+            className="w-10 h-10  rounded-2xl flex items-center justify-center text-white shadow-xl "
+            style={{ background: 'linear-gradient(135deg, #3C3489, #D4537E)' }}
+          >
+            <Image src="/brand/logo.png" alt="koraa logo" width="100" height="100" className='rounded-lg' />
           </div>
           <h1 className="text-xl font-extrabold" style={{ color: '#3C3489' }}>Koraa</h1>
-        </div>
+        </div> */}
         {profile?.target_language && (
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(60,52,137,0.08)' }}>
             <span className="text-base">🇬🇧</span>
