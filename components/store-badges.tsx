@@ -45,4 +45,5 @@ export function StoreBadges({ className }: { className?: string }) {
       )}
     </div>
   )
+
 }
