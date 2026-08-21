@@ -32,8 +32,8 @@ import { useState } from "react";
 
 const screenshots = [
     { src: "/mockups/home.png", alt: "Accueil de l'application Koraa : choix des langues maternelles et leçons" },
-    { src: "/mockups/search.png", alt: "Recherche de mots, expressions et verbes par thématiques dans Koraa" },
-    { src: "/mockups/recipe.png", alt: "Leçon détaillée avec prononciation audio HD et quiz de mémorisation" },
+    { src: "/mockups/listen-course1.png", alt: "Guide de prononciation audio guidé par des locuteurs natifs" },
+    { src: "/mockups/all-courses.png", alt: "Accès à toute les leçons de Koraa" },
     { src: "/mockups/cookbook.png", alt: "Dictionnaire personnel Koraa avec révision par répetition espacée" },
     { src: "/mockups/recipe-video.png", alt: "Guide de prononciation audio guidé par des locuteurs natifs" },
     { src: "/mockups/settings.png", alt: "Réglages de l'application Koraa : choix de la langue pont et mode hors-ligne" },
@@ -221,7 +221,7 @@ export default function Home() {
                             {/* Main Phone Frame */}
                             <div className="overflow-hidden rounded-[2.8rem] border-4 border-foreground/10 bg-surface shadow-2xl">
                                 <Image
-                                    src="/mockups/home.png"
+                                    src="/mockups/all-courses.png"
                                     alt="Koraa App Home"
                                     width={380}
                                     height={740}
@@ -233,7 +233,7 @@ export default function Home() {
                             {/* Secondary Offset Phone Frame */}
                             <div className="absolute -bottom-8 -right-6 hidden w-[210px] overflow-hidden rounded-[2.2rem] border-4 border-foreground/10 bg-surface shadow-2xl sm:block">
                                 <Image
-                                    src="/mockups/search.png"
+                                    src="/mockups/home.jpeg"
                                     alt="Koraa Vocab Search"
                                     width={210}
                                     height={420}
@@ -499,7 +499,7 @@ export default function Home() {
                             </div>
                             <div className="w-full max-w-md overflow-hidden rounded-3xl border border-foreground/10 bg-surface shadow-xl">
                                 <Image
-                                    src="/mockups/recipe-video.png"
+                                    src="/mockups/listen-course1.png"
                                     alt="Prononciation Audio Koraa"
                                     width={450}
                                     height={350}
