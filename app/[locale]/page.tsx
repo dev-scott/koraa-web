@@ -31,12 +31,12 @@ import Link from "next/link";
 import { useState } from "react";
 
 const screenshots = [
-    { src: "/mockups/home.png", alt: "Accueil de l'application Koraa : choix des langues maternelles et leçons" },
-    { src: "/mockups/search.png", alt: "Recherche de mots, expressions et verbes par thématiques dans Koraa" },
-    { src: "/mockups/recipe.png", alt: "Leçon détaillée avec prononciation audio HD et quiz de mémorisation" },
-    { src: "/mockups/cookbook.png", alt: "Dictionnaire personnel Koraa avec révision par répetition espacée" },
-    { src: "/mockups/recipe-video.png", alt: "Guide de prononciation audio guidé par des locuteurs natifs" },
-    { src: "/mockups/settings.png", alt: "Réglages de l'application Koraa : choix de la langue pont et mode hors-ligne" },
+    { src: "/mockups/learning.png", alt: "Accueil de l'application Koraa : choix des langues maternelles et leçons" },
+    { src: "/mockups/listening.png", alt: "Les leçons de langue guidées par des locuteurs natifs" },
+    { src: "/mockups/setting.png", alt: "Réglages de l'application Koraa : choix de la langue pont et mode hors-ligne" },
+    { src: "/mockups/auth.png", alt: "page d'authentification par lien magique" },
+    { src: "/mockups/pronunciation.png", alt: "Guide de prononciation audio guidé par des locuteurs natifs" },
+    { src: "/mockups/onboarding.png", alt: "Réglages de l'application Koraa : choix de la langue pont et mode hors-ligne" },
 ]
 
 // Studio Phrasebook Thématiques
@@ -221,7 +221,7 @@ export default function Home() {
                             {/* Main Phone Frame */}
                             <div className="overflow-hidden rounded-[2.8rem] border-4 border-foreground/10 bg-surface shadow-2xl">
                                 <Image
-                                    src="/mockups/home.png"
+                                    src="/mockups/learning.png"
                                     alt="Koraa App Home"
                                     width={380}
                                     height={740}
@@ -233,7 +233,7 @@ export default function Home() {
                             {/* Secondary Offset Phone Frame */}
                             <div className="absolute -bottom-8 -right-6 hidden w-[210px] overflow-hidden rounded-[2.2rem] border-4 border-foreground/10 bg-surface shadow-2xl sm:block">
                                 <Image
-                                    src="/mockups/search.png"
+                                    src="/mockups/pronunciation.png"
                                     alt="Koraa Vocab Search"
                                     width={210}
                                     height={420}
@@ -273,11 +273,10 @@ export default function Home() {
                                     key={cat.categoryKey}
                                     type="button"
                                     onClick={() => setActiveStudioTab(idx)}
-                                    className={`cursor-pointer inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold transition-all ${
-                                        activeStudioTab === idx
+                                    className={`cursor-pointer inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold transition-all ${activeStudioTab === idx
                                             ? "bg-primary text-white shadow-md scale-105"
                                             : "bg-background text-foreground/70 hover:bg-foreground/5 border border-foreground/10"
-                                    }`}
+                                        }`}
                                 >
                                     <IconComponent className="size-3.5" />
                                     <span>{label}</span>
@@ -417,11 +416,10 @@ export default function Home() {
                             >
                                 <HoverCard className="h-full">
                                     <div
-                                        className={`flex h-full flex-col justify-between rounded-3xl border p-6 shadow-sm transition-all ${
-                                            lang.featured
+                                        className={`flex h-full flex-col justify-between rounded-3xl border p-6 shadow-sm transition-all ${lang.featured
                                                 ? "border-primary/30 bg-background"
                                                 : "border-foreground/10 bg-background"
-                                        }`}
+                                            }`}
                                     >
                                         <div>
                                             <div className="flex items-center justify-between">
@@ -499,7 +497,7 @@ export default function Home() {
                             </div>
                             <div className="w-full max-w-md overflow-hidden rounded-3xl border border-foreground/10 bg-surface shadow-xl">
                                 <Image
-                                    src="/mockups/recipe-video.png"
+                                    src="/mockups/learning.png"
                                     alt="Prononciation Audio Koraa"
                                     width={450}
                                     height={350}
@@ -531,7 +529,7 @@ export default function Home() {
                             </div>
                             <div className="w-full max-w-md overflow-hidden rounded-3xl border border-foreground/10 bg-surface shadow-xl">
                                 <Image
-                                    src="/mockups/recipe.png"
+                                    src="/mockups/pronunciation.png"
                                     alt="Leçons Interactives Koraa"
                                     width={450}
                                     height={350}

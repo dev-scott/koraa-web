@@ -1,5 +1,5 @@
 export type Locale = "fr" | "en"
-
+// text transalation
 export const locales: Locale[] = ["fr", "en"]
 export const defaultLocale: Locale = "fr"
 
@@ -330,6 +330,7 @@ const dictionaries = {
                     summary:
                         "In short: Koraa does not collect any personally identifiable data without your consent. Your progress and preferences are stored on your device. Some features (pronunciation, voice transcription) require sending audio data to our server for processing (see section 4). The app uses Supabase to manage your account and sync your progress (see section 7).",
                 },
+                
                 data: {
                     title: "2. Data Collection",
                     intro:
