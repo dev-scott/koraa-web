@@ -447,7 +447,7 @@ export default function Home() {
                                         </div>
 
                                         <Link
-                                            href={`/${locale}/app`}
+                                            href={`/${locale}/languages/${lang.id}`}
                                             className="mt-6 flex items-center justify-between text-xs font-bold text-primary hover:text-secondary"
                                         >
                                             <span>Découvrir la langue</span>
