@@ -3,6 +3,7 @@
 import { useAuth } from '@/lib/auth-context'
 import { motion } from 'framer-motion'
 import { User, Mail, Globe, BookOpen, Award, LogOut, Settings } from 'lucide-react'
+import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 
 export default function ProfilePage() {
@@ -12,9 +13,15 @@ export default function ProfilePage() {
   const router = useRouter()
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-3 border-[#3C3489] border-t-transparent rounded-full animate-spin" />
+    return ( 
+      // <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      //   <div className="w-8 h-8 border-3 border-[#3C3489] border-t-transparent rounded-full animate-spin" />
+      // </div>
+      <div
+        className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-xl rounded-xl animate-bounce"
+        style={{ background: 'linear-gradient(135deg, #3C3489, #D4537E)' }}
+      >
+        <Image src="/brand/logo.png" alt="koraa logo" width="100" height="100" />
       </div>
     )
   }

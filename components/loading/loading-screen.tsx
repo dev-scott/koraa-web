@@ -12,6 +12,7 @@ export function LoadingScreen() {
           style={{ background: 'linear-gradient(135deg, #3C3489, #D4537E)' }}
         >
           <Image src="/brand/logo.png" alt="koraa logo" width="100" height="100"/>
+
         </div>
         <div className="w-8 h-8 border-3 border-purple-400 border-t-transparent rounded-full animate-spin" />
       </div>
