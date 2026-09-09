@@ -55,10 +55,10 @@ export function IntroScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden text-white">
+    <div className="min-h-screen bg-slate-950 flex flex- items-center justify-center p-4 relative overflow-hidden text-white">
       {/* Background Gradient Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-900/30 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[300px] h-[300px] bg-pink-900/20 rounded-full blur-3xl pointer-events-none" />
+      {/* <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-900/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[300px] h-[300px] bg-pink-900/20 rounded-full blur-3xl pointer-events-none" /> */}
 
       <div className="max-w-md w-full z-10 space-y-8">
         {/* Header / Hero */}
@@ -145,14 +145,14 @@ export function IntroScreen() {
             </form>
           )}
 
-          <div className="flex items-center gap-4 my-4">
+          {/* <div className="flex items-center gap-4 my-4">
             <div className="flex-1 h-px bg-white/10" />
             <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">ou</span>
             <div className="flex-1 h-px bg-white/10" />
-          </div>
+          </div> */}
 
           {/* Social Sign-in */}
-          <button
+          {/* <button
             onClick={handleSignInWithGoogle}
             type="button"
             className="w-full flex items-center justify-center gap-3 py-3 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 text-white font-medium text-sm transition-all"
@@ -176,7 +176,7 @@ export function IntroScreen() {
               />
             </svg>
             <span>Continuer avec Google</span>
-          </button>
+          </button> */}
         </motion.div>
       </div>
     </div>
